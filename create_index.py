@@ -3,8 +3,9 @@
 Usage: python create_index.py
 Needs OPENAI_API_KEY and PINECONE_API_KEY in .env.
 
-The dimension is not typed by hand: the script embeds one test sentence and uses
-the length of that vector, so the index always matches EMBED_MODEL.
+The dimension comes from the model: the script embeds one test sentence and uses the
+length of that vector. If OpenAI can't be called (no credits, no key), it falls back to
+the dimension OpenAI documents for EMBED_MODEL, so the index can still be created.
 If the index already exists, nothing is created; the script checks its dimension instead.
 """
 
@@ -22,11 +23,22 @@ REGION = config.get("PINECONE_REGION", "us-east-1")
 METRIC = "cosine"
 
 
+# Default output sizes documented by OpenAI for its embedding models.
+KNOWN_DIMENSIONS = {"text-embedding-3-small": 1536, "text-embedding-3-large": 3072, "text-embedding-ada-002": 1536}
+
+
 def model_dimension() -> int:
     model = config.get("EMBED_MODEL", DEFAULT_MODEL)
-    dim = len(embed_texts(["How do I reset a board filter?"], model=model)[0])
-    print(f"Model {model} returns vectors of dimension {dim}")
-    return dim
+    try:
+        dim = len(embed_texts(["How do I reset a board filter?"], model=model)[0])
+        print(f"Model {model} returns vectors of dimension {dim} (measured)")
+        return dim
+    except Exception as exc:  # no credits, missing key, network
+        if model not in KNOWN_DIMENSIONS:
+            sys.exit(f"Could not call OpenAI ({exc.__class__.__name__}) and {model} has no known dimension.")
+        dim = KNOWN_DIMENSIONS[model]
+        print(f"Could not call OpenAI ({exc.__class__.__name__}); using the documented dimension for {model}: {dim}")
+        return dim
 
 
 def wait_until_ready(pc: Pinecone, name: str, timeout: int = 120) -> None:
