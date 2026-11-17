@@ -23,6 +23,7 @@ Put the export at `data/atlassian_jira_cloud_help_docs_export_2025-03-07.json` (
 
 ```bash
 python embed_test.py   # prints the vector dimension, 1536 for text-embedding-3-small
+python create_index.py # creates the Pinecone index at that same dimension, cosine
 ```
 
 ## Run
