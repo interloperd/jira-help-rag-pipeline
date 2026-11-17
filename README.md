@@ -6,7 +6,7 @@ Python pipeline that turns the Atlassian Jira Cloud help docs export into a vect
 |---|---|---|
 | Loader | `pipeline/loader.py` | written |
 | Chunker | `pipeline/chunker.py` | stub |
-| Embed | `pipeline/embed.py` | stub |
+| Embed | `pipeline/embed.py` | `embed_texts` written, chunk embedding to do |
 | Upsert | `pipeline/upsert.py` | stub |
 
 ## Setup
@@ -18,6 +18,12 @@ cp .env.example .env   # then fill in the keys
 ```
 
 Put the export at `data/atlassian_jira_cloud_help_docs_export_2025-03-07.json` (the `data/` folder is git-ignored).
+
+## Check the embedding model
+
+```bash
+python embed_test.py   # prints the vector dimension, 1536 for text-embedding-3-small
+```
 
 ## Run
 
