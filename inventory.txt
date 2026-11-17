@@ -1,0 +1,65 @@
+Inventory of atlassian_jira_cloud_help_docs_export_2025-03-07.json  (raw export, before the loader repairs anything)
+export_id jira-help-docs-2025-03-07  record_count 40  docs found 40
+
+#   doc_id    last_updated heading                                                  flags
+01  JCH-0001  2025-02-18   Manage project permissions                               DUPLICATE URL (shared with JCH-0003)
+02  JCH-0002  2025-01-28   What are permission schemes?                             DUPLICATE HEADING (Before you begin)
+03  JCH-0003  2025-03-04   Grant the Browse projects permission to a group          HEADING ANCHOR (Grant the Browse projects permission {#browse-projects}); DUPLICATE URL (shared with JCH-0001)
+04  JCH-0004  07/02/2025   What are issue security levels?                          ODD DATE (07/02/2025)
+05  JCH-0005  2024-12-16   Manage global permissions                                ODD FILENAME (administration/Manage_Global_Permissions.md)
+06  JCH-0006  (none)       Manage project roles                                     MISSING DATE (frontmatter has 2025-02-05)
+07  JCH-0007  2025-01-09   Create an issue and a subtask
+08  JCH-0008  2025-02-04   Use advanced search with Jira Query Language (JQL)       DATE CONFLICT (field 2025-02-04 vs frontmatter 2025-01-27)
+09  JCH-0009  2024-12-11   Add a transition to a workflow
+10  JCH-0010  2025-01-14   Configure columns on a board
+11  JCH-0011  2025-02-25   Create and edit Jira automation rules
+12  JCH-0012  2025-01-07   Create a notification scheme
+13  JCH-0013  2025-02-04   Use functions in JQL queries
+14  JCH-0014  2025-01-09   Configure Jira application options
+15  JCH-0015  2024-12-11   Configure swimlanes on a board
+16  JCH-0016  2025-01-14   Use smart values in automation rules                     DATE CONFLICT (field 2025-01-14 vs frontmatter 2024-12-19)
+17  JCH-0017  2025-02-26   Manage your personal notification settings
+18  JCH-0018  2024-12-11   Edit multiple issues at the same time
+19  JCH-0019  2025-01-09   Add conditions and validators to a workflow transition
+20  JCH-0020  2025-02-04   Save your search as a filter
+21  JCH-0021  2024-12-17   Configure time tracking
+22  JCH-0022  2025-02-11   Link issues to other issues
+23  JCH-0023  2025-01-09   Use your Scrum backlog
+24  JCH-0024  2025-02-04   Configure outgoing email notifications                   DATE CONFLICT (field 2025-02-04 vs frontmatter 2025-01-14)
+25  JCH-0025  2025-03-03   Configure workflow schemes
+26  JCH-0026  2025-02-06   Create a custom field
+27  JCH-0027  2024-12-16   Run automation rules on a schedule
+28  JCH-0028  2025-01-14   Work with issues in the list view
+29  JCH-0029  2025-03-05   Manage webhooks
+30  JCH-0030  2025-01-09   Create a board
+31  JCH-0031  2024-12-16   Plan work in the calendar view
+32  JCH-0032  14/01/2025   Add, edit, and delete an issue type                      ODD DATE (14/01/2025)
+33  JCH-0033  2025-02-26   Audit activities in Jira applications
+34  JCH-0034  2025-01-14   Start a sprint
+35  JCH-0035  2024-12-19   Add, edit, and delete resolutions
+36  JCH-0036  2025-02-11   Manage notifications in team-managed projects
+37  JCH-0037  2025-03-04   View the audit log for an automation rule
+38  JCH-0038  2025-02-06   Customize the look and feel of Jira
+39  JCH-0039  2025-02-11   Configure quick filters on a board                       DATE CONFLICT (field 2025-02-11 vs frontmatter 2025-01-30)
+40  JCH-0040  2025-03-07   Track project progress in the summary view
+
+Summary by field (0 = clean)
+  doc_id        DUPLICATE ID        0   doc_id used by more than one page
+  title         MISSING TITLE       0   title empty or null
+  title         TITLE MISMATCH      0   title differs from the frontmatter title or the # heading in the body
+  last_updated  MISSING DATE        1   last_updated empty or null
+  last_updated  ODD DATE            2   last_updated present but not in ISO format YYYY-MM-DD
+  last_updated  DATE CONFLICT       4   ISO last_updated differs from the last_updated in the body's frontmatter
+  headings      MISSING HEADING     0   headings empty, null or unreadable
+  headings      DUPLICATE HEADING   1   the same section heading appears twice on one page
+  headings      HEADING ANCHOR      1   a heading carries anchor markup such as {#browse-projects}
+  headings      HEADING MISMATCH    0   headings field differs from the ## headings found in the body
+  url           MISSING URL         0   url empty or null
+  url           DUPLICATE URL       2   url shared with another page
+  url           URL MISMATCH        0   url differs from source_url in the frontmatter
+  body          EMPTY BODY          0   body_markdown empty
+  body          NO FRONTMATTER      0   body_markdown does not start with a --- frontmatter block
+  source_file   ODD FILENAME        1   source_file not lowercase-kebab-case .md
+  word_count    WORD COUNT OFF      0   word_count more than 15% away from the words in the body
+
+40 pages | 11 flagged | 29 clean | 1 missing date | 2 odd date | 4 date conflict | 1 duplicate heading | 1 heading anchor | 2 duplicate url | 1 odd filename

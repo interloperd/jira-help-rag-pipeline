@@ -29,6 +29,7 @@ python create_index.py # creates the Pinecone index at that same dimension, cosi
 ## Run
 
 ```bash
+python -m pipeline --inventory --out inventory.txt   # data quality inventory, see GAP_NOTES.md
 python -m pipeline            # uses EXPORT_PATH or the default path
 pytest
 ```
