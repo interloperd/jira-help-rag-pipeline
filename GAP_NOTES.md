@@ -46,6 +46,25 @@ Each rule lives in `RULES` in `pipeline/inventory.py`. A page is flagged when an
 | HEADING ANCHOR | JCH-0003, `{#browse-projects}` | 1 |
 | ODD FILENAME | JCH-0005, `Manage_Global_Permissions.md` | 1 |
 
+### Zero counts: what came back clean
+
+**Zero gaps: doc_id 0, title 0, body 0, word_count 0.** Inside fields that did have gaps, these rules also came back at 0: headings MISSING HEADING 0, HEADING MISMATCH 0; url MISSING URL 0, URL MISMATCH 0.
+
+| Field | Rule | Count | Why it is clean |
+|---|---|---|---|
+| doc_id | DUPLICATE ID | 0 | 40 distinct ids, JCH-0001 to JCH-0040, one per page |
+| title | MISSING TITLE | 0 | every page has a title |
+| title | TITLE MISMATCH | 0 | on every page the title equals the frontmatter `title` and the `#` heading in the body |
+| body | EMPTY BODY | 0 | every page has body text |
+| body | NO FRONTMATTER | 0 | every body starts with a `---` frontmatter block |
+| word_count | WORD COUNT OFF | 0 | every stored count is within 15% of the words in the body; the largest gap is JCH-0001, 298 stored vs 260 counted, about 13% |
+| headings | MISSING HEADING | 0 | every headings field is present and decodes to a non-empty list |
+| headings | HEADING MISMATCH | 0 | on all 40 pages the decoded list equals the `##` headings in the body, in order |
+| url | MISSING URL | 0 | every page has a url |
+| url | URL MISMATCH | 0 | every url equals `source_url` in the page's frontmatter |
+
+No field is fully clean on last_updated or source_file: each of their rules flagged at least one page.
+
 ## Why each gap matters and how the pipeline handles it
 
 **Dates feed check 3** (source file, heading and updated date on every vector), so they get the most care.
