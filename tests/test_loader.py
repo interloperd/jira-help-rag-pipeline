@@ -61,3 +61,11 @@ def test_real_export_if_present():
     meta, docs = load_export(DEFAULT_EXPORT_PATH)
     assert len(docs) == meta.record_count
     assert all(isinstance(d.headings, list) for d in docs)
+
+
+def test_cli_prints_five_fields_including_headings(tmp_path, capsys):
+    from pipeline.loader import main
+    code = main([str(_export(tmp_path, [_doc()]))])
+    first = capsys.readouterr().out.splitlines()[0]
+    assert first == "MISSING | Title | https://example.com | 2025-02-18 | Before you begin; Grant it"
+    assert code == 1  # the fixture has no source_file, so the CLI flags it

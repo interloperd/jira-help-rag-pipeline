@@ -180,7 +180,7 @@ def load_export(path: str | Path = DEFAULT_EXPORT_PATH) -> tuple[ExportMetadata,
     return meta, docs
 
 
-SUMMARY_FIELDS = ("doc_id", "source_file", "title", "url", "last_updated")
+SUMMARY_FIELDS = ("source_file", "title", "url", "last_updated", "headings")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -197,7 +197,8 @@ def main(argv: list[str] | None = None) -> int:
 
     incomplete = 0
     for d in docs:
-        values = d.metadata()
+        # metadata() has no headings, and headings is a list: join it into one readable value.
+        values = {**d.metadata(), "headings": "; ".join(d.headings)}
         row = [str(values[f]) if values[f] else "MISSING" for f in SUMMARY_FIELDS]
         incomplete += "MISSING" in row
         print(" | ".join(row))
