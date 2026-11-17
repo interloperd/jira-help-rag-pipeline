@@ -48,3 +48,15 @@ def test_reports_largest_word_count_gap(tmp_path):
     report, _ = _run(tmp_path, docs)
     words = 9  # body of _doc without frontmatter: "# T ## One alpha beta ## Two gamma"
     assert f"word_count largest gap: B, 10 stored vs {words} counted (10.0% off, threshold 15%)" in report
+
+
+def test_page_over_word_count_threshold_is_flagged(tmp_path):
+    # The _doc body has 9 words once the frontmatter is removed. Storing 20 puts the
+    # page 55% off, well past the 15% threshold; page A stores the true count.
+    docs = [_doc("A", word_count=9), _doc("OVER", word_count=20)]
+    report, flagged = _run(tmp_path, docs)
+    over_row = next(line for line in report.splitlines() if "  OVER " in line)
+    assert over_row.endswith("WORD COUNT OFF (20 vs 9)")
+    assert re.search(r"WORD COUNT OFF\s+1\s", report)
+    assert "word_count largest gap: OVER, 20 stored vs 9 counted (55.0% off, threshold 15%)" in report
+    assert flagged == 1
