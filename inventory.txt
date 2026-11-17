@@ -61,5 +61,6 @@ Summary by field (0 = clean)
   body          NO FRONTMATTER      0   body_markdown does not start with a --- frontmatter block
   source_file   ODD FILENAME        1   source_file not lowercase-kebab-case .md
   word_count    WORD COUNT OFF      0   word_count more than 15% away from the words in the body
+  word_count largest gap: JCH-0001, 298 stored vs 260 counted (12.8% off, threshold 15%)
 
 40 pages | 11 flagged | 29 clean | 1 missing date | 2 odd date | 4 date conflict | 1 duplicate heading | 1 heading anchor | 2 duplicate url | 1 odd filename

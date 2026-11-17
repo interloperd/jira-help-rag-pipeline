@@ -124,8 +124,14 @@ def run(path: str | Path) -> tuple[str, int]:
 
     totals = Counter()
     rows, flagged_pages = [], 0
+    worst_wc: tuple[float, str, int, int] | None = None  # (gap ratio, doc_id, stored, counted)
     for i, raw in enumerate(docs, 1):
         page = Page(raw, ids_by_url, id_counts)
+        stored = raw.get("word_count")
+        if isinstance(stored, int) and stored > 0:
+            gap = abs(page.words - stored) / stored
+            if worst_wc is None or gap > worst_wc[0]:
+                worst_wc = (gap, str(raw.get("doc_id")), stored, page.words)
         flags = [(flag, detail(flag, page)) for _, flag, _, test in RULES if test(page)]
         totals.update(f for f, _ in flags)
         flagged_pages += bool(flags)
@@ -145,6 +151,12 @@ def run(path: str | Path) -> tuple[str, int]:
     field_width = max(len(f) for f, *_ in RULES)
     for field, flag, rule, _ in RULES:
         lines.append(f"  {field:<{field_width}}  {flag:<18} {totals[flag]:>2}   {rule}")
+    if worst_wc:
+        gap, doc_id, stored, counted = worst_wc
+        lines.append(
+            f"  word_count largest gap: {doc_id}, {stored} stored vs {counted} counted "
+            f"({gap:.1%} off, threshold {WORD_COUNT_TOLERANCE:.0%})"
+        )
     parts = [f"{len(docs)} pages", f"{flagged_pages} flagged", f"{len(docs) - flagged_pages} clean"]
     parts += [f"{totals[flag]} {flag.lower()}" for _, flag, _, _ in RULES if totals[flag]]
     lines += ["", " | ".join(parts)]

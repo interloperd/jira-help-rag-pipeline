@@ -57,7 +57,7 @@ Each rule lives in `RULES` in `pipeline/inventory.py`. A page is flagged when an
 | title | TITLE MISMATCH | 0 | on every page the title equals the frontmatter `title` and the `#` heading in the body |
 | body | EMPTY BODY | 0 | every page has body text |
 | body | NO FRONTMATTER | 0 | every body starts with a `---` frontmatter block |
-| word_count | WORD COUNT OFF | 0 | every stored count is within 15% of the words in the body; the largest gap is JCH-0001, 298 stored vs 260 counted, about 13% |
+| word_count | WORD COUNT OFF | 0 | every stored count is within 15% of the words in the body; the largest gap is JCH-0001, 298 stored vs 260 counted, 12.8%, as printed on the `word_count largest gap` line of `inventory.txt` |
 | headings | MISSING HEADING | 0 | every headings field is present and decodes to a non-empty list |
 | headings | HEADING MISMATCH | 0 | on all 40 pages the decoded list equals the `##` headings in the body, in order |
 | url | MISSING URL | 0 | every page has a url |

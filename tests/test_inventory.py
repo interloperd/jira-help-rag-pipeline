@@ -41,3 +41,10 @@ def test_each_problem_is_flagged(tmp_path):
     assert "DUPLICATE URL (shared with D)" in report
     assert "ODD FILENAME" in report
     assert flagged == 4
+
+
+def test_reports_largest_word_count_gap(tmp_path):
+    docs = [_doc("A", word_count=9), _doc("B", word_count=10)]
+    report, _ = _run(tmp_path, docs)
+    words = 9  # body of _doc without frontmatter: "# T ## One alpha beta ## Two gamma"
+    assert f"word_count largest gap: B, 10 stored vs {words} counted (10.0% off, threshold 15%)" in report
