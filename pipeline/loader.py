@@ -178,3 +178,33 @@ def load_export(path: str | Path = DEFAULT_EXPORT_PATH) -> tuple[ExportMetadata,
     )
     log.info("Loaded %d documents from %s", len(docs), path)
     return meta, docs
+
+
+SUMMARY_FIELDS = ("doc_id", "source_file", "title", "url", "last_updated")
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Print one line per document with the five summary fields.
+
+    Usage: ``python -m pipeline.loader [path/to/export.json]``
+    Exits with code 1 if any document is missing one of the five fields.
+    """
+    import sys
+
+    argv = sys.argv[1:] if argv is None else argv
+    logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s: %(message)s")
+    _, docs = load_export(argv[0] if argv else DEFAULT_EXPORT_PATH)
+
+    incomplete = 0
+    for d in docs:
+        values = d.metadata()
+        row = [str(values[f]) if values[f] else "MISSING" for f in SUMMARY_FIELDS]
+        incomplete += "MISSING" in row
+        print(" | ".join(row))
+
+    print(f"\n{len(docs)} documents, {len(docs) - incomplete} with all {len(SUMMARY_FIELDS)} fields")
+    return 1 if incomplete else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
